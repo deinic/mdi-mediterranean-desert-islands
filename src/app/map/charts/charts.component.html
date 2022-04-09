@@ -1,0 +1,13 @@
+<p-sidebar [(visible)]="chart_sidebar" [baseZIndex]="10000" (onHide)="hideChart()">
+    <div *ngIf="!clearChartSidebar">
+        <div *ngFor="let country of countries; let i=index">
+            <p-card style="text-align: center;">
+                <span class="custom-flag flag-icon flag-icon-{{country.code}}"></span>
+                <h1 class="country">{{country.name}}</h1>
+                <h2 class="name">{{country.tot_islands}}</h2>
+                <h3 class="descr-center">Islands</h3>
+                <p-chart type="doughnut" [data]="country.chart" [style]="{'width': '40%'}"></p-chart>
+            </p-card>
+        </div>
+    </div>
+</p-sidebar>

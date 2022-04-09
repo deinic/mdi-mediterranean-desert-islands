@@ -1,0 +1,24 @@
+<div>
+    <h1 class="name">{{name}}</h1>
+</div>
+<div>
+    <h2 class="country">{{country}}</h2>
+</div>
+
+
+<p-accordion>
+    <p-accordionTab class="name" header="{{typology_name}}" [selected]="true">
+        <p class="descr">{{description_island}}</p>
+    </p-accordionTab>
+</p-accordion>
+
+<!-- <div *ngFor="let photo of photos">
+    <p-image src="{{photo.path}}" alt="Image" width="250" [preview]="true"></p-image>
+</div> -->
+<div class="video-button">
+<button pButton  icon="pi pi-video" type="button" label="{{typology_name}} video" class="p-button-outlined p-button-lg p-button-rounded p-button-info" (click)="goToLinkVideo()"></button>
+</div>
+
+<p-dialog header="Video for {{typology_name}}" [(visible)]="displayVideo">
+    <div [innerHTML]="html"></div>
+</p-dialog>

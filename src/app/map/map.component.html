@@ -1,0 +1,8 @@
+<div id="map"></div>
+<p-sidebar [(visible)]="sidebar" [baseZIndex]="10000">
+    <app-infobar  [name]="name" [country]="country" [typology_name]="typology_name" [description_island]="description_island" [photos]="photos" [video]="video"></app-infobar>
+</p-sidebar>
+<app-layer-control></app-layer-control>
+<app-charts [clearChartSidebar]="clearChartSidebar" [chart_sidebar]="openChartSidebar" [islands]="islands" (close_sidebar)="closeSidebarCharts($event)"></app-charts>
+
+

@@ -1,0 +1,8 @@
+:host ::ng-deep .p-multiselect {
+    min-width: 15rem;
+    max-width: 20%;
+}
+
+:host ::ng-deep .multiselect-custom-virtual-scroll .p-multiselect {
+    min-width: 20rem;
+}

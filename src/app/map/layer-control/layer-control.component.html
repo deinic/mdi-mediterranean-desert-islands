@@ -1,0 +1,111 @@
+<p-sidebar [(visible)]="openLyC" [baseZIndex]="10000" position="right" (onHide)="hideSidebar()">
+
+
+
+<div id="layer-control">
+    <p-accordion>
+        <p-accordionTab class="name" header="Basemaps" [selected]="accordion_basemaps">
+            <p-listbox [options]="basemaps" [(ngModel)]="selectedBasemap" optionLabel="title" [style]="{'width':'15rem'}" (onChange)="changeBasemap($event)"></p-listbox>
+
+        </p-accordionTab>
+    </p-accordion>
+</div>
+
+
+
+<div id="layer-control">
+    <p-accordion>
+        <p-accordionTab class="name" header="Islands" [selected]="accordion_islands">
+            <tr>
+                <td>
+                    <p-selectButton [options]="stateOptions" [(ngModel)]="natural" optionLabel="label"
+                        optionValue="value" (onChange)="changeSelector($event,1)"></p-selectButton>
+                </td>
+                <td>
+                    <span class="descr">Natural Islands <i class="icon-custom icon-color pi pi-circle-fill"></i></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p-selectButton [options]="stateOptions" [(ngModel)]="natural_park" optionLabel="label" optionValue="value"
+                    (onChange)="changeSelector($event,2)"></p-selectButton>
+                </td>
+                <td>
+                    <span class="descr">Natural Park Islands <i class="icon-custom icon-color pi pi-flag-fill"></i></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p-selectButton [options]="stateOptions" [(ngModel)]="private" optionLabel="label" optionValue="value"
+                    (onChange)="changeSelector($event,3)"></p-selectButton>
+                </td>
+                <td>
+                    <span class="descr">Private Islands <i class="icon-custom icon-color pi pi-ban"></i></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p-selectButton [options]="stateOptions" [(ngModel)]="prison" optionLabel="label" optionValue="value"
+                    (onChange)="changeSelector($event,4)"></p-selectButton>
+               
+                </td>
+                <td>
+                    <span class="descr">Prison Islands <i class="icon-custom icon-color pi pi-key"></i></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p-selectButton [options]="stateOptions" [(ngModel)]="military" optionLabel="label" optionValue="value"
+                    (onChange)="changeSelector($event,5)"></p-selectButton>
+                
+                </td>
+                <td>
+                    <span class="descr">Military Islands <i class="icon-custom icon-color pi pi-shield"></i></span>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+
+                    <p-selectButton [options]="stateOptions" [(ngModel)]="industrial" optionLabel="label" optionValue="value"
+                    (onChange)="changeSelector($event,6)"></p-selectButton>
+                
+                </td>
+                <td>
+                    <span class="descr">Industrial Islands <i class="icon-custom icon-color pi pi-filter"></i></span>
+                </td>
+            </tr>
+        </p-accordionTab>
+    </p-accordion>
+</div>
+
+
+
+
+<div height="500px">
+    <h3 class="descr">Search island by name</h3>
+    <p-autoComplete [(ngModel)]="selectedIsland" [suggestions]="filteredNameIslands"
+        (completeMethod)="filterCountry($event)" (onSelect)="selectIsland()">
+    </p-autoComplete>
+</div>
+
+
+
+<div height="500px" class="layer-control">
+    <h3 class="descr">Filter by country</h3>
+<p-multiSelect [options]="countries" [(ngModel)]="selectedCountries" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom"   (onChange)="changeMultiSelector($event)" >
+    <ng-template let-country pTemplate="item">
+        <div class="country-item">
+            <span class="flag-icon flag-icon-{{country.code}} flag-icon-squared"></span>  
+            <span>{{country.name}}</span>
+        </div>
+    </ng-template>
+</p-multiSelect>
+</div>
+
+</p-sidebar>

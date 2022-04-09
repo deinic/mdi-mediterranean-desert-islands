@@ -1,1 +1,98 @@
-/* You can add global styles to this file, and also import other style files */
+.icon-custom{
+    background: white;
+    border-radius: 30px;
+    padding: 5px;
+}
+
+.containter{
+    display: flex;
+    align-items: center;
+}
+
+.icon-color{
+    color:#187283;
+}
+
+.name{
+    color:#187283 !important;
+    text-align: center;
+    font-family:'Impact';
+}
+
+.country{
+    color:#6B8E95 !important;
+    text-align: center;
+    font-family:'Impact';
+}
+
+.descr{
+    color:#6B8E95 ;
+    text-align: justify;
+    font-family:'Impact';
+}
+
+.custom-flag{
+    border: 1px solid #f0f0f0;
+width: 73%;
+height: 19vh;
+}
+
+.descr-center{
+    color:#6B8E95 ;
+    text-align: center;
+    font-family:'Impact';
+}
+
+.p-accordion-header-text {
+    color: #187283 !important;
+  }
+
+  .flag-size{
+    width:60%;
+    height: 70vh;
+  }
+
+  .title{
+    text-align: center;
+    color:#187283;
+    font-family:'Impact';
+    font-size: 50px;
+    height:10vh;
+}
+
+.layer-control{
+    height: 53vh;
+display: inline-block;
+}
+
+#layer-control{
+    margin-top: 2%;
+    width: 100%;
+}
+.p-selectbutton .p-button.p-highlight {
+    background: #077aed !important;
+  }
+
+  .p-sidebar-right {
+    width: 24rem !important;
+  }
+
+.space{
+    padding: 3%;
+}
+
+.p-button.p-button-icon-only.p-button-rounded {
+    border-radius: 50%;
+    height: 100%;
+    width:100%
+  }
+
+
+  @media screen and (max-width: 460px) {
+ 
+    .title{
+        font-size: 20px;
+        height: 4vh;
+    }
+
+  }
