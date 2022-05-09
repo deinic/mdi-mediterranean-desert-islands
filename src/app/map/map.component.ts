@@ -38,7 +38,7 @@ export class MapComponent implements OnInit {
   public islands: any = []
   public name: string = "..passa il mouse sull'isola deserta..."
   public country: string = ''
-  public nation: string = ''
+  public nation: any = []
   public typology_name: string = ''
   public video: string = ''
   public description_island: string = ''
@@ -46,7 +46,9 @@ export class MapComponent implements OnInit {
   public natural_islands: any
   public responseLCB!: any
   public basemaps: any
-  public filter_by_country: any
+  public filter_by_country: any = []
+  public _filter_by_country: any = []
+
   public layer_filter: any = []
   public _layer_filter: any = []
 
@@ -92,6 +94,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
 
+
     this.sharedService.getEnlargeZoom().subscribe(res => {
       if (res) {
         this.map.flyTo([40, 14], 5)
@@ -111,41 +114,7 @@ export class MapComponent implements OnInit {
 
 
 
-    this.sharedService.getFilterByCountry().subscribe(res => {
-      console.log(res)
-      this.filter_by_country = res
-      console.log(this.filter_by_country.length)
-      if (this.filter_by_country.length != 0) {
-        this.map.eachLayer((layer: any) => {
-          this.markerCluster.removeLayer(layer)
-          if (!layer._url) {
-            this.map.removeLayer(layer);
-          }
-        });
 
-        for (let filter of this.filter_by_country) {
-          this.layer_filter = this.islands.filter((f: any) => {
-            return f.properties.country === filter.code.toUpperCase()
-          })
-          console.log(this.layer_filter)
-          this.buildMarker(this.layer_filter)
-        }
-        this.openChartSidebar = true
-        this.clearChartSidebar = false
-
-      } else {
-
-        this.map.eachLayer((layer: any) => {
-          this.markerCluster.removeLayer(layer)
-          if (!layer._url) {
-            this.map.removeLayer(layer);
-          }
-        });
-        this.buildMarker(this.islands)
-        this.openChartSidebar = false
-        this.clearChartSidebar = true
-      }
-    })
 
 
     this.map = L.map('map').setView([40, 14], 5)
@@ -174,24 +143,6 @@ export class MapComponent implements OnInit {
       'OpenTopoMap': OpenTopoMap,
       'OpenStreetMap_HOT': OpenStreetMap_HOT
     }
-
-
-    /*     this.marker.getMarker()
-          .subscribe(res => {
-            for (let f of res.features) {
-              let lat = f.geometry.coordinates[0]
-              let lon = f.geometry.coordinates[1]
-              let html = '<h1>' + f.properties.indirizzo + '</h1>'
-                + '<h2>' + f.properties.city + '</h2>'
-                + '<h2>' + f.properties.country + '</h2>'
-                + '<h3>' + f.properties.status + '</h3>'
-                + '<img width="100%" src="' + f.properties.img + '">'
-    
-              L.marker([lon, lat])//.addTo(this.map)
-                .bindPopup(html)
-            }
-          }) */
-
 
     this.marker.getMarkerIslands()
       .subscribe(res => {
@@ -229,7 +180,28 @@ export class MapComponent implements OnInit {
       })
 
 
+    /*     this.marker.getMarker()
+          .subscribe(res => {
+            for (let f of res.features) {
+              let lat = f.geometry.coordinates[0]
+              let lon = f.geometry.coordinates[1]
+              let html = '<h1>' + f.properties.indirizzo + '</h1>'
+                + '<h2>' + f.properties.city + '</h2>'
+                + '<h2>' + f.properties.country + '</h2>'
+                + '<h3>' + f.properties.status + '</h3>'
+                + '<img width="100%" src="' + f.properties.img + '">'
+    
+              L.marker([lon, lat])//.addTo(this.map)
+                .bindPopup(html)
+            }
+          }) */
 
+
+
+
+
+
+    //Island Layer Control 
 
     this.sharedService.getValuelayerControlButton().subscribe(res => {
       this.responseLCB = res
@@ -256,22 +228,50 @@ export class MapComponent implements OnInit {
             }
           });
 
-          console.log('filter_by_country',this.filter_by_country)
-          this.layer_filter = this.islands.filter((f:any) => {
-/*             for(let c of this.filter_by_country){
-                this.nation = c.code.toUpperCase()
-            } */
-            return f.properties.island_typology == this.responseLCB.type //&& f.properties.country===this.nation
-          })
-          this._layer_filter = [...this._layer_filter, ...this.layer_filter]
-          this.buildMarker(this._layer_filter)
+          console.log('filter_by_country', this.filter_by_country)
+
+          if (this.filter_by_country.length !== 0) {
+            let tmp_layer:any=[]
+            for (let i = 0; i < this.filter_by_country.length; i++) {
+              this.nation.push(this.filter_by_country[i].code.toUpperCase())
+              this.layer_filter = this.islands.filter((f: any) => {
+                return f.properties.island_typology == this.responseLCB.type && f.properties.country === this.nation[i]
+              })
+              tmp_layer = [...tmp_layer, ...this.layer_filter]
+
+            }
+            this._layer_filter = [...this._layer_filter, ...tmp_layer]
+            this.buildMarker(this._layer_filter)
+          } else {
+            this.layer_filter = this.islands.filter((f: any) => {
+              return f.properties.island_typology == this.responseLCB.type
+            })
+            
+            this._layer_filter = [...this._layer_filter, ...this.layer_filter]
+            this.buildMarker(this._layer_filter)
+          }
+
+
+          /*           this.layer_filter = this.islands.filter((f: any) => {
+                      if (this.filter_by_country.length!==0) {
+                        for (let c of this.filter_by_country ) {
+                          //this.nation = c.code.toUpperCase()
+                          this.nation.push(c.code.toUpperCase()) 
+                        }
+                        return f.properties.island_typology == this.responseLCB.type && f.properties.country === this.nation[0]
+                      } else {
+                        return f.properties.island_typology == this.responseLCB.type
+                      }
+                      //return f.properties.island_typology == this.responseLCB.type
+          
+                    }) */
 
 
         } else {
+
           if (this._layer_filter.length === 0) {
             this._layer_filter = this.islands
           }
-
           this.map.eachLayer((layer: any) => {
             this.markerCluster.removeLayer(layer)
             if (!layer._url) {
@@ -288,6 +288,54 @@ export class MapComponent implements OnInit {
 
         }
       }
+    })
+
+
+    //Filter by country
+
+    this.sharedService.getFilterByCountry().subscribe(res => {
+      console.log(res)
+      this.filter_by_country = res
+      this._layer_filter = []
+
+      if (this.filter_by_country.length != 0) {
+        this.map.eachLayer((layer: any) => {
+          this.markerCluster.removeLayer(layer)
+          if (!layer._url) {
+            this.map.removeLayer(layer);
+          }
+        });
+
+        for (let filter of this.filter_by_country) {
+          this.layer_filter = this.islands.filter((f: any) => {
+            return f.properties.country === filter.code.toUpperCase()
+          })
+          console.log(this.layer_filter)
+          this.buildMarker(this.layer_filter)
+          this._layer_filter = [...this.layer_filter, ...this._layer_filter]
+        }
+
+        console.log('_layer_filter', this._layer_filter)
+
+
+        this.openChartSidebar = true
+        this.clearChartSidebar = false
+
+      } else {
+
+        this.map.eachLayer((layer: any) => {
+          this.markerCluster.removeLayer(layer)
+          if (!layer._url) {
+            this.map.removeLayer(layer);
+          }
+        });
+        this.buildMarker(this.islands)
+        this._layer_filter = this.islands
+        this.openChartSidebar = false
+        this.clearChartSidebar = true
+      }
+
+
     })
 
 

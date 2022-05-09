@@ -88,6 +88,10 @@ display: inline-block;
   }
 
 
+  .p-dialog-header {
+    display: none !important;
+  }
+
   @media screen and (max-width: 460px) {
  
     .title{

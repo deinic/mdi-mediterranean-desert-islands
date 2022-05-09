@@ -1,0 +1,26 @@
+<p-dialog  [(visible)]="displayBasic" [style]="{width: '50vw'}">
+    <h1 class="name">THE PROJECT</h1>
+
+    <p class="descr"><span style="font-weight: 400;"><strong>MDI</strong> stands for Mediterranean Desert Islands, a map for all islands and islets whose main characteristic is that they are uninhabited or that human presence is or has been transient.</span></p>
+<p class="descr"><span style="font-weight: 400;">The idea is based on a previous and important artistic project, called &copy;Desertmed (<a href="http://www.desertmed-storage.org/pdf/old_DESERTMED_DOSSIER_01052011.pdf" target="_blank" rel="noopener">EN</a>) (<a href="http://www.desertmed-storage.org/pdf/Desertmed2013_Ita.pdf" target="_blank" rel="noopener">ITA</a>), in which several artists from all over Europe participated to describe and locate the main desert islands around the Mediterranean Sea.</span></p>
+<p class="descr"><span style="font-weight: 400;">From that project, MDI inherited the list of these islands, also following the classification made for each of them. The desert islands are divided into:</span></p>
+<p class="descr">&nbsp;</p>
+<ul class="descr">
+<li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">Natural</span> <i class="icon-custom icon-color pi pi-circle-fill"></i></li>
+<li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">Natural parks</span><i class="icon-custom icon-color pi pi-flag-fill"></i></li>
+<li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">Private</span><i class="icon-custom icon-color pi pi-ban"></i></li>
+<li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">Prisons</span><i class="icon-custom icon-color pi pi-key"></i></li>
+<li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">Military</span><i class="icon-custom icon-color pi pi-shield"></i></li>
+<li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">Industrial</span><i class="icon-custom icon-color pi pi-filter"></i></li>
+</ul>
+<p class="descr">&nbsp;</p>
+<p class="descr"><span style="font-weight: 400;">MDI has associated a descriptive text and video for each typology used by Desertmed to deepen the meaning that each class of island brought with it.</span></p>
+<p class="descr"><span style="font-weight: 400;">To the more than 270 islands cataloged by the &copy;Desertmed project, further islands and islets has been then added, thanks to research and verification, through the use of Wikipedia and other sources, which helped enrich this project.<br /></span><span style="font-weight: 400;">The purpose of MDI is to give a geographical dignity to these last empty spaces of the Mediterranean, looking for them, not only for an exact location on the map, but also trying to tell them through photographic, video and narrative material.</span></p>
+<p class="descr"><span style="font-weight: 400;">The project is working in progress, free and open to anyone who wants to collaborate to enrich it with information. Just write to <a href="mailto:info@nicoladeinnocentis.it">info@nicoladeinnocentis.it</a></span></p>
+
+
+
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

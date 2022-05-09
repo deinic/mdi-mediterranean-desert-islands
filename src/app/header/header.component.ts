@@ -22,6 +22,12 @@ export class HeaderComponent implements OnInit {
 
     this.items=[
       {
+        label:'The Project',
+        icon:'pi pi-info-circle',
+        command: (event) =>{this.sharedService.openInfoProject().next(true)}
+
+      },
+      {
         label:'Layer Control',
         icon:'pi pi-map',
         command: (event) =>{ this.sharedService.openLCSidebar().next(true)}

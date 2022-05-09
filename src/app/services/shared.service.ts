@@ -11,6 +11,8 @@ export class SharedService {
   filterByCountry = new Subject()
   enlargeZoom = new Subject()
   openLayerControl = new Subject()
+  infoProject = new Subject()
+
 
   getIslandFromAutocomplete(){
     return this.nameIslandFromAutocomplete
@@ -30,6 +32,10 @@ export class SharedService {
 
   getEnlargeZoom(){
     return this.enlargeZoom
+  }
+
+  openInfoProject(){
+    return this.infoProject
   }
 
   constructor() { }

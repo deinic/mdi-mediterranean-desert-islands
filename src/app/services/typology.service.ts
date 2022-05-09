@@ -12,7 +12,7 @@ export class TypologyService {
   ) { }
 
   public getTypologies(): Observable<any> {
-    return this.httpClient.get('http://localhost:8085/getTypologies')
+    return this.httpClient.get('https://maps.nicoladeinnocentis.it:8085/getTypologies')
 
   }
 }

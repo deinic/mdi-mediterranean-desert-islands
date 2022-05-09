@@ -25,6 +25,7 @@ import { ChartsComponent } from './map/charts/charts.component';
 import {CardModule} from 'primeng/card';
 import {TieredMenuModule} from 'primeng/tieredmenu';
 import {ChartModule} from 'primeng/chart';
+import { ModalInfoComponent } from './map/modal-info/modal-info.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {ChartModule} from 'primeng/chart';
     InfobarComponent,
     LayerControlComponent,
     HeaderComponent,
-    ChartsComponent
+    ChartsComponent,
+    ModalInfoComponent
   ],
   imports: [
     BrowserModule,
