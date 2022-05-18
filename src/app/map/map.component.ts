@@ -199,8 +199,7 @@ export class MapComponent implements OnInit {
 
 
 
-
-
+let isZero=true
     //Island Layer Control 
 
     this.sharedService.getValuelayerControlButton().subscribe(res => {
@@ -269,7 +268,7 @@ export class MapComponent implements OnInit {
 
         } else {
 
-          if (this._layer_filter.length === 0) {
+          if (this._layer_filter.length === 0 && isZero) {
             this._layer_filter = this.islands
           }
           this.map.eachLayer((layer: any) => {
@@ -285,6 +284,7 @@ export class MapComponent implements OnInit {
 
           this.buildMarker(this.layer_filter)
           this._layer_filter = this.layer_filter
+          isZero=false
 
         }
       }

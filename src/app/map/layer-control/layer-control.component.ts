@@ -26,6 +26,8 @@ export class LayerControlComponent implements OnInit {
   stateOptions!: any[];
   public openLyC!: any 
 
+  public _status:boolean=true
+
   public natural: boolean = true 
   public natural_park: boolean = true
   public private: boolean = true
@@ -65,8 +67,12 @@ export class LayerControlComponent implements OnInit {
     })
   }
 
+
   changeSelector(e: any, type: number) {
-    this.sharedService.getValuelayerControlButton().next({ status: e.value, type: type })
+    if(e.value !== this._status){
+      this.sharedService.getValuelayerControlButton().next({ status: e.value, type: type })
+      this._status=e.value
+    }
   }
 
   changeBasemap(e: any) {
@@ -76,6 +82,13 @@ export class LayerControlComponent implements OnInit {
 
   changeMultiSelector(e: any) {
     this.sharedService.getFilterByCountry().next(e.value)
+    this.natural=true
+    this.natural_park=true
+    this.private=true
+    this.prison=true
+    this.military=true
+    this.industrial=true
+    this._status=true
   }
 
   
