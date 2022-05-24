@@ -1,13 +1,42 @@
 <div>
     <h1 class="name">{{name}}</h1>
+    <h4 class="name">{{lat.toFixed(2)}}° N  &#x0; &#x0; &#x0; &#x0; &#x0; {{lon.toFixed(2)}}° E</h4>
 </div>
 <div>
     <h2 class="country">{{country}}</h2>
 </div>
 
 
+<ng-container *ngIf="wiki_image; else elseTemplateImage">
+    <p-image src={{wiki_image}} alt="Image" width="250" alt="Image" [preview]="true"></p-image>
+</ng-container>
+<ng-template #elseTemplateImage>
+</ng-template>
+
+<ng-container *ngIf="wiki_extract; else elseTemplateExtract">
+    <p class="wiki-descr" ><strong>{{wiki_extract}}</strong><br>
+    <small class="wiki-descr"> Photo & text from <a href={{wiki_url}} target="_blank">Wikipedia</a></small>
+    </p>
+    
+</ng-container>
+<ng-template #elseTemplateExtract>
+</ng-template>
+
+
 <p-accordion>
-    <p-accordionTab class="name" header="{{typology_name}}" [selected]="true">
+    <p-accordionTab class="name" header="At this time . . . " >
+        <p class="descr justify">The weather is {{weather}}</p>
+        <p class="descr justify">Temperature: {{temperature.toFixed(1)}} °C</p>
+        <p class="descr justify">Humidity: {{humidity.toFixed(1)}} %</p>
+        <p class="descr justify">Pressure: {{pressure}} hPa</p>
+        <p class="descr justify">Wind Speed: {{windSpeed}} m/s</p>
+
+    </p-accordionTab>
+</p-accordion>
+
+
+<p-accordion>
+    <p-accordionTab class="name" header="{{typology_name}} is . . ." >
         <p class="descr">{{description_island}}</p>
     </p-accordionTab>
 </p-accordion>
@@ -21,4 +50,7 @@
 
 <p-dialog header="Video for {{typology_name}}" [(visible)]="displayVideo">
     <div [innerHTML]="html"></div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayVideo=false" label="Close" styleClass="p-button-text"></p-button>
+    </ng-template>
 </p-dialog>

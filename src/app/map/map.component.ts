@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as L from 'leaflet'
 import 'leaflet.markercluster';
+import { DarkskyService } from '../services/darksky.service';
 import { MarkerService } from '../services/marker.service';
 import { PhotoService } from '../services/photo.service';
 import { SharedService } from '../services/shared.service';
 import { TypologyService } from '../services/typology.service';
+import { WikiService } from '../services/wiki.service';
 
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
@@ -42,6 +44,16 @@ export class MapComponent implements OnInit {
   public typology_name: string = ''
   public video: string = ''
   public description_island: string = ''
+  public wiki_image: string = ''
+  public wiki_extract: string = ''
+  public temperature! :number
+  public humidity! :number
+  public pressure! :number 
+  public windSpeed! :number 
+  public weather: string =''
+  public wiki_url: string = ''
+  public lat!: number
+  public lon!: number
   public photos = []
   public natural_islands: any
   public responseLCB!: any
@@ -89,7 +101,9 @@ export class MapComponent implements OnInit {
     private marker: MarkerService,
     private typology: TypologyService,
     private photo: PhotoService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private wikiService: WikiService,
+    private darkskyService: DarkskyService
   ) { }
 
   ngOnInit(): void {
@@ -199,7 +213,7 @@ export class MapComponent implements OnInit {
 
 
 
-let isZero=true
+    let isZero = true
     //Island Layer Control 
 
     this.sharedService.getValuelayerControlButton().subscribe(res => {
@@ -230,7 +244,7 @@ let isZero=true
           console.log('filter_by_country', this.filter_by_country)
 
           if (this.filter_by_country.length !== 0) {
-            let tmp_layer:any=[]
+            let tmp_layer: any = []
             for (let i = 0; i < this.filter_by_country.length; i++) {
               this.nation.push(this.filter_by_country[i].code.toUpperCase())
               this.layer_filter = this.islands.filter((f: any) => {
@@ -245,7 +259,7 @@ let isZero=true
             this.layer_filter = this.islands.filter((f: any) => {
               return f.properties.island_typology == this.responseLCB.type
             })
-            
+
             this._layer_filter = [...this._layer_filter, ...this.layer_filter]
             this.buildMarker(this._layer_filter)
           }
@@ -284,7 +298,7 @@ let isZero=true
 
           this.buildMarker(this.layer_filter)
           this._layer_filter = this.layer_filter
-          isZero=false
+          isZero = false
 
         }
       }
@@ -352,10 +366,11 @@ let isZero=true
         html: '<i style="margin-bottom: -7px;margin-left: -8px;" class="icon-custom icon-color pi pi-' + this.iconType(f.properties.island_typology) + '"></i>',
         iconSize: [0, 0],
       });
-      let lat = f.geometry.coordinates[0][0]
-      let lon = f.geometry.coordinates[0][1]
+      let lon = f.geometry.coordinates[0][0]
+      let lat = f.geometry.coordinates[0][1]
 
-      let mk = L.marker([lon, lat], { icon: customIcon, title: f.properties.island_typology })
+
+      let mk = L.marker([lat, lon], { icon: customIcon, title: f.properties.island_typology })
       this.markerCluster.addLayer(mk)
       //this.markerCluster
       //mk.addTo(this.map)
@@ -366,7 +381,6 @@ let isZero=true
         this.sidebar = true
         this.typology.getTypologies()
           .subscribe((res) => {
-            console.log(res)
             this.typology_name = res[f.properties.island_typology - 1].type_name
             this.video = res[f.properties.island_typology - 1].url_video
             this.description_island = res[f.properties.island_typology - 1].descr
@@ -379,6 +393,34 @@ let isZero=true
 
         this.name = f.properties.name;
         this.country = f.properties.country
+
+
+        this.wikiService.getwikiInfo(f.properties.wiki_title, f.properties.wiki_lang)
+          .subscribe((res) => {
+            this.wiki_extract = res.query.pages[0].extract
+            this.wiki_image = res.query.pages[0].thumbnail.source
+            this.wiki_url = "https://" + f.properties.wiki_lang + ".wikipedia.org/wiki/" + f.properties.wiki_title
+          })
+
+
+         this.lon = f.geometry.coordinates[0][0]
+         this.lat = f.geometry.coordinates[0][1]
+
+        console.log(lat + "," + lon)
+
+
+        this.darkskyService.getDarkskyInfo(this.lat, this.lon)
+          .subscribe((res) => {
+            console.log(res)
+
+
+            this.temperature = res.currently.temperature
+            this.humidity=res.currently.humidity * 100
+            this.pressure = res.currently.pressure
+            this.windSpeed = res.currently.windSpeed
+            this.weather = res.currently.summary
+
+          })
       })
     }
 
@@ -387,6 +429,11 @@ let isZero=true
 
   closeSidebarCharts(value: any) {
     this.openChartSidebar = value
+  }
+
+  hideSidebar() {
+    this.wiki_image = ''
+    this.wiki_extract = ''
   }
 
 

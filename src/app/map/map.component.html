@@ -1,6 +1,23 @@
 <div id="map"></div>
-<p-sidebar [(visible)]="sidebar" [baseZIndex]="10000">
-    <app-infobar  [name]="name" [country]="country" [typology_name]="typology_name" [description_island]="description_island" [photos]="photos" [video]="video"></app-infobar>
+<p-sidebar [(visible)]="sidebar" [baseZIndex]="10000" (onHide)="hideSidebar()">
+    <app-infobar 
+    [name]="name" 
+    [country]="country" 
+    [typology_name]="typology_name" 
+    [description_island]="description_island" 
+    [photos]="photos" 
+    [video]="video" 
+    [wiki_image]="wiki_image" 
+    [wiki_extract]="wiki_extract" 
+    [wiki_url]="wiki_url"
+    [temperature]="temperature"
+    [humidity]="humidity"
+    [pressure]="pressure"
+    [windSpeed]="windSpeed"
+    [weather]="weather"
+    [lat]="lat"
+    [lon]="lon"
+    ></app-infobar>
 </p-sidebar>
 <app-layer-control></app-layer-control>
 <app-charts [clearChartSidebar]="clearChartSidebar" [chart_sidebar]="openChartSidebar" [islands]="islands" (close_sidebar)="closeSidebarCharts($event)"></app-charts>
