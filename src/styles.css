@@ -37,6 +37,12 @@ width: 73%;
 height: 19vh;
 }
 
+.wiki-descr{
+    font-family: "Gill Sans", sans-serif;
+    color:#6B8E95 ;
+
+}
+
 .descr-center{
     color:#6B8E95 ;
     text-align: center;
