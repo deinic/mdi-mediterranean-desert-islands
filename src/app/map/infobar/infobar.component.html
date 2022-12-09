@@ -1,6 +1,6 @@
 <div>
     <h1 class="name">{{name}}</h1>
-    <h4 class="name">{{lat.toFixed(2)}}° N  &#x0; &#x0; &#x0; &#x0; &#x0; {{lon.toFixed(2)}}° E</h4>
+    <h4 class="name">{{lat}}° N  {{lon}}° E</h4>
 </div>
 <div>
     <h2 class="country">{{country}}</h2>
@@ -26,8 +26,8 @@
 <p-accordion>
     <p-accordionTab class="name" header="At this time . . . " >
         <p class="descr justify">The weather is {{weather}}</p>
-        <p class="descr justify">Temperature: {{temperature.toFixed(1)}} °C</p>
-        <p class="descr justify">Humidity: {{humidity.toFixed(1)}} %</p>
+        <p class="descr justify">Temperature: {{temperature}} °C</p>
+        <p class="descr justify">Humidity: {{humidity}} %</p>
         <p class="descr justify">Pressure: {{pressure}} hPa</p>
         <p class="descr justify">Wind Speed: {{windSpeed}} m/s</p>
 

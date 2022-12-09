@@ -8,7 +8,6 @@ import { SharedService } from '../services/shared.service';
 import { TypologyService } from '../services/typology.service';
 import { WikiService } from '../services/wiki.service';
 
-
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
@@ -46,11 +45,11 @@ export class MapComponent implements OnInit {
   public description_island: string = ''
   public wiki_image: string = ''
   public wiki_extract: string = ''
-  public temperature! :number
-  public humidity! :number
-  public pressure! :number 
-  public windSpeed! :number 
-  public weather: string =''
+  public temperature!: number
+  public humidity!: number
+  public pressure!: number
+  public windSpeed!: number
+  public weather: string = ''
   public wiki_url: string = ''
   public lat!: number
   public lon!: number
@@ -403,24 +402,27 @@ export class MapComponent implements OnInit {
           })
 
 
-         this.lon = f.geometry.coordinates[0][0]
-         this.lat = f.geometry.coordinates[0][1]
+        this.lon = f.geometry.coordinates[0][0]
+        this.lat = f.geometry.coordinates[0][1]
 
         console.log(lat + "," + lon)
 
 
-        this.darkskyService.getDarkskyInfo(this.lat, this.lon)
-          .subscribe((res) => {
-            console.log(res)
+                this.darkskyService.getDarkskyInfo(this.lat, this.lon)
+                  .subscribe((res) => {
+                    console.log(res)
+        
+        
+                    this.temperature = res.currently.temperature
+                    this.humidity=res.currently.humidity * 100
+                    this.pressure = res.currently.pressure
+                    this.windSpeed = res.currently.windSpeed
+                    this.weather = res.currently.summary
+        
+                  })
 
 
-            this.temperature = res.currently.temperature
-            this.humidity=res.currently.humidity * 100
-            this.pressure = res.currently.pressure
-            this.windSpeed = res.currently.windSpeed
-            this.weather = res.currently.summary
 
-          })
       })
     }
 
@@ -434,7 +436,10 @@ export class MapComponent implements OnInit {
   hideSidebar() {
     this.wiki_image = ''
     this.wiki_extract = ''
+    this.wiki_url = ''
   }
+
+
 
 
 }

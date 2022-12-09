@@ -1,0 +1,7 @@
+{
+    "/api/": {
+      "target": "https://en.wikipedia.org/wiki/",
+      "secure": false,
+      "changeOrigin": true
+    }
+  }

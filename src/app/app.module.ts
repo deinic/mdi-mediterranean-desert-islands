@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -57,6 +57,7 @@ import { ModalInfoComponent } from './map/modal-info/modal-info.component';
     ChartModule,
     MultiSelectModule,
     TieredMenuModule,
+    HttpClientJsonpModule,
     ToggleButtonModule    
   ],
   providers: [],
